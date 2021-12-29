@@ -1,7 +1,5 @@
 # IAT Dumper
-A dumper for all the imports stored in a windows portable executable file.
+A dumper for all the imports stored within a Windows PE (portable executable).
 
-# Usage
-Run the executable with `-file` parameter.
-
-![alt text](https://i.imgur.com/mIpDJuq.png)
+# Screenshot
+![alt text](https://i.imgur.com/PB0QUh4.png)
