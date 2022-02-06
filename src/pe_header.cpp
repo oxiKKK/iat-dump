@@ -42,7 +42,7 @@ uint32_t rva_to_u32_offset(PIMAGE_NT_HEADERS nt, uint32_t rva)
 	return NULL;
 }
 
-void print_dword_string(DWORD *str)
+void print_dword_string(DWORD* str)
 {
 	while (true)
 	{

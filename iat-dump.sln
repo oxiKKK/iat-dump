@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31829.152
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "iat-dump", "src\iat-dump.vcxproj", "{F817E846-D1BF-418F-A62A-68996F0FB5FF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F817E846-D1BF-418F-A62A-68996F0FB5FF}.Debug|x86.ActiveCfg = Debug|Win32
+		{F817E846-D1BF-418F-A62A-68996F0FB5FF}.Debug|x86.Build.0 = Debug|Win32
+		{F817E846-D1BF-418F-A62A-68996F0FB5FF}.Release|x86.ActiveCfg = Release|Win32
+		{F817E846-D1BF-418F-A62A-68996F0FB5FF}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B8947E65-8FEC-40F6-92E8-B1AFBA79C30B}
+	EndGlobalSection
+EndGlobal

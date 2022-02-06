@@ -3,7 +3,7 @@
 
 #include "process.h"
 
-int main(int argc, char **argv)
+int main(int argc, char** argv)
 {
 	if (argv[1] && !strcmp(argv[1], "-file"))
 	{
@@ -34,14 +34,12 @@ int main(int argc, char **argv)
 				printf("Success\n");
 				return 0;
 			}
-		}
-		else
+		} else
 		{
 			printf("Error: Invalid path.\n");
 			printf("%s\n", argv[2]);
 		}
-	}
-	else
+	} else
 	{
 		printf("Error: Invalid argument.\n");
 		printf("%s\n", argv[1]);
