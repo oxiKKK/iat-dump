@@ -30,9 +30,9 @@ void process_imports(uint8_t* buf, PIMAGE_NT_HEADERS nt, PIMAGE_DATA_DIRECTORY i
 
 	printf("  IAT entry point: " ADDR "\n", iat);
 
-	auto first_thunk = reinterpret_cast<PIMAGE_THUNK_DATA>(buf + rva_to_u32_offset(nt, iat->OriginalFirstThunk));
+	auto original_first_thunk = reinterpret_cast<PIMAGE_THUNK_DATA>(buf + rva_to_u32_offset(nt, iat->OriginalFirstThunk));
 
-	printf("  First thunk:     " ADDR "\n", first_thunk);
+	printf("  Original First thunk:     " ADDR "\n", original_first_thunk);
 
 	printf("\nProcessing import descriptors:");
 
@@ -41,16 +41,15 @@ void process_imports(uint8_t* buf, PIMAGE_NT_HEADERS nt, PIMAGE_DATA_DIRECTORY i
 	uint32_t n_descriptors = 0, n_imports = 0;
 	while (iat->OriginalFirstThunk)
 	{
-		auto original_first_thunk = reinterpret_cast<PIMAGE_THUNK_DATA>(buf + rva_to_u32_offset(nt, iat->OriginalFirstThunk));
-		auto first_thunk = reinterpret_cast<PIMAGE_THUNK_DATA>(buf + rva_to_u32_offset(nt, iat->FirstThunk));
+		auto thunk = reinterpret_cast<PIMAGE_THUNK_DATA>(buf + rva_to_u32_offset(nt, iat->OriginalFirstThunk));
 		auto name = reinterpret_cast<DWORD>(buf + rva_to_u32_offset(nt, iat->Name));
 
 		uint32_t n = 0;
 		printf("\n  %s:\n", reinterpret_cast<const char*>(name));
-		while (original_first_thunk->u1.AddressOfData)
+		while (thunk->u1.AddressOfData)
 		{
-			auto name = reinterpret_cast<PIMAGE_IMPORT_BY_NAME>(buf + rva_to_u32_offset(nt, original_first_thunk->u1.AddressOfData));
-			auto ordinal = original_first_thunk->u1.Ordinal;
+			auto name = reinterpret_cast<PIMAGE_IMPORT_BY_NAME>(buf + rva_to_u32_offset(nt, thunk->u1.AddressOfData));
+			auto ordinal = thunk->u1.Ordinal;
 
 			printf("  ");
 			printf("%-3d ", ++n);
@@ -60,7 +59,7 @@ void process_imports(uint8_t* buf, PIMAGE_NT_HEADERS nt, PIMAGE_DATA_DIRECTORY i
 			if (IMAGE_SNAP_BY_ORDINAL32(ordinal))
 			{
 				printf("[ %-3d ] ", IMAGE_ORDINAL32(ordinal));
-				printf("----------");
+				printf(ADDR, thunk->u1.Function);
 				printf(" ");
 				printf("----------");
 			}
@@ -68,15 +67,14 @@ void process_imports(uint8_t* buf, PIMAGE_NT_HEADERS nt, PIMAGE_DATA_DIRECTORY i
 			else
 			{
 				printf("[ n/a ] ");
-				printf(ADDR, original_first_thunk->u1.Function);
+				printf(ADDR, thunk->u1.Function);
 				printf(" ");
 				printf("%s", reinterpret_cast<const char*>(name->Name));
 			}
 
 			printf("\n");
 
-			original_first_thunk++;
-			first_thunk++;
+			thunk++;
 
 			n_imports++;
 		}
